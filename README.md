@@ -2,6 +2,8 @@
 
 ReRoPE is a simple yet novel augmentation of [Rotary Position Embedding](https://arxiv.org/abs/2104.09864) which is able to reliably and significantly improve the performance of existing context window extension techniques without the need for fine-tuning. The only caveat to ReRoPE is the model needs to be pre-trained with ReRoPE to take advantage of the enhanced extrapolation behaviour.
 
+***A full paper is in the works right now. Please be patient, and it should be out very soon on ArXiv!***
+
 ## How it works
 The idea is simple. Instead of computing the rotary positions for elements of a sequence from left to right, ReRoPE computes the positions from right to left; instead of the first token in your sequence being positon `1` and the last token being position `n` we flip things around so the last token in the sequence is always position `1` and the position index increases the further into the past the token is.
 
