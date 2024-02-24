@@ -9,9 +9,11 @@ The idea is simple. Instead of computing the rotary positions for elements of a 
 
 Why does this work better? For vanillar RoPE when the LM head sits on 'unseen' positions during extrapolation we get a perplexity explosion because the rotations used for the both the queries and keys were never seen during training. But with ReRoPE the these unseen rotations are pushed as far away from the LM head as possible. ReRoPE still suffers from increased perplexity when extrapolating, but the degredation is more graceful than for vanilla RoPE.
 
-In the graph below we compare two Transformer-XL style models on the [GovReport test set](https://github.com/tau-nlp/scrolls). Both models were trained with 2048 context length + 2048 memory length on 30B tokens of The Pile. We additionally run tests using [NTK Aware Scaling](https://reddit.com/r/LocalLLaMA/comments/14lz7j5/ntkaware_scaled_rope_allows_llama_models_to_have/) with `alpha=2` and `alpha=4` to observe the context window extension behaviours. Across all tests we observe ReRoPE suffers less when the context window is extended beyong the 'safe range.'
+In the graph below we compare two Transformer-XL style models on the [GovReport test set](https://github.com/tau-nlp/scrolls). We additionally run tests using [NTK Aware Scaling](https://reddit.com/r/LocalLLaMA/comments/14lz7j5/ntkaware_scaled_rope_allows_llama_models_to_have/) with `alpha=2` and `alpha=4` to observe the context window extension behaviours. Across all tests we observe ReRoPE suffers less when the context window is extended beyong the 'safe range.'
 
-<div style="text-align:center" align=center><br><img src="assets/gov-reports-test-set-cl.png" width=80%></div><br>
+<div style="text-align:center" align=center><br><img src="assets/gov-reports-test-set-cl.png" width=49%><img src="assets/gov-reports-test-set-cl-acc.png" width=49%></div><br>
+
+Both models have 12 layers, an embedding dimension of 768, key dimension of 64 and use SwiGLU activation with an intermediate size of 3072. Both models were trained with 2048 context length + 2048 memory length on 30B tokens of The Pile with a batch size of 480 and using the LaProp optimizer with a max learning rate of `6e-4`.
 
 ## Code
 
