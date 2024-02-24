@@ -20,7 +20,7 @@ Both models have 12 layers, an embedding dimension of 768, key dimension of 64 a
 Below is the minimal set of code needed to implement ReRoPE in PyTorch. The inclusion of `past_key_values` makes this perfect for use with HuggingFace models!
 
 ```py
-class ReRotaryEmbedding( torch.nn.Module ):
+class RotaryEmbedding( torch.nn.Module ):
     def __init__( self, dim: int, base_freq=10000, reversed=True ):
         super().__init__()
         self.dim = dim
@@ -63,6 +63,8 @@ def apply_rope( query, key, rope_pos ):
 
     return query, key
 ```
+
+A more advanced implementation which includes dynamic NTK scaling and YaRN temperature scaling is included [here](https://github.com/Avelina9X/memory-transformer-pt4/blob/0734604e74a532f9220f775b7193115a83f74bcc/src/model/layers.py#L105) in another repository.
 
 ## Citation
 If you use this codebase, or otherwise found our work valuable, please cite the paper once released in the coming weeks.
