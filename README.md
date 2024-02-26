@@ -30,6 +30,8 @@ class RotaryEmbedding( torch.nn.Module ):
         self.reversed = reversed
 
     def forward( self, embeddings, past_key_values=None ):
+        # NOTE: use `past_key_values[0][0]` if you are passing the KV list of *ALL* layers, e.g. if you are computing once per full model forward pass.
+        #       you must change to `past_key_values[0]` if you passing the KV tuple of *ONE* layer, e.g. if you are computing once per attention layer.
         seq_len = embeddings.shape[-2] + ( past_key_values[0][0].shape[-2] if past_key_values is not None else 0 )
         device = embeddings.device
         
